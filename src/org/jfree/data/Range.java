@@ -102,11 +102,6 @@ public strictfp class Range implements Serializable {
      * @return The lower bound.
      */
     public double getLowerBound() {
-        if (lower > upper) {
-            String msg = "Range(double, double): require lower (" + lower
-                + ") <= upper (" + upper + ").";
-            throw new IllegalArgumentException(msg);
-        }
         return this.lower;
     }
 
@@ -116,11 +111,6 @@ public strictfp class Range implements Serializable {
      * @return The upper bound.
      */
     public double getUpperBound() {
-        if (lower > upper) {
-            String msg = "Range(double, double): require lower (" + lower
-                + ") <= upper (" + upper + ").";
-            throw new IllegalArgumentException(msg);
-        }
         return this.upper;
     }
 
@@ -130,11 +120,6 @@ public strictfp class Range implements Serializable {
      * @return The length.
      */
     public double getLength() {
-        if (lower > upper) {
-            String msg = "Range(double, double): require lower (" + lower
-                + ") <= upper (" + upper + ").";
-            throw new IllegalArgumentException(msg);
-        }
         return this.upper - this.lower;
     }
 
@@ -156,12 +141,6 @@ public strictfp class Range implements Serializable {
      * @return <code>true</code> if the range contains the specified value.
      */
     public boolean contains(double value) {
-        if (value < this.lower) {
-            return false;
-        }
-        if (value  > this.upper) {
-            return false;
-        }
         return (value >= this.lower && value <= this.upper);
     }
 
@@ -175,7 +154,6 @@ public strictfp class Range implements Serializable {
      * @return A boolean.
      */
     public boolean intersects(double b0, double b1) {
-        
         if (b0 <= this.lower) {
             return (b1 > this.lower);
         }

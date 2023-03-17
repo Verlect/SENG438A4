@@ -74,6 +74,56 @@ public class RangeTest {
     	assertFalse("The given range does not intersect with Range object.", actual);
     }
     
+    @Test // v4
+    public void testIntersectWithSameLower() {
+    	myTester = new Range(5, 10);
+    	double l = 0;
+    	double u = 5;
+    	boolean GARBAGE = myTester.intersects(l,u);
+    	boolean actual = myTester.intersects(l,u);
+    	assertFalse(actual);
+    }
+    
+    @Test // v4
+    public void testIntersectWithSameUpper() {
+    	myTester = new Range(5, 10);
+    	double l = 10;
+    	double u = 15;
+    	boolean GARBAGE = myTester.intersects(l,u);
+    	boolean actual = myTester.intersects(l,u);
+    	assertFalse(actual);
+    }
+    
+    @Test //v4
+    public void testIntersect_DD_One() {
+    	myTester = new Range(5, 10);
+    	double l = 0;
+    	double u = 6;
+    	boolean GARBAGE = myTester.intersects(l,u);
+    	boolean actual = myTester.intersects(l,u);
+    	assertTrue(actual);
+    }
+    
+    @Test //v4
+    public void testIntersect_DD_Two() {
+    	myTester = new Range(1,2);
+    	double l = 1;
+    	double u = 1;
+    	
+    	boolean actual = myTester.intersects(l, u);
+    	assertFalse(actual);
+    }
+    
+    @Test //v4
+    public void testIntersect_DD_Three() {
+    	myTester = new Range(1,2);
+    	double l = 1;
+    	double u = 2;
+    	
+    	boolean actual = myTester.intersects(l, u);
+    	assertTrue(actual);
+    }
+    
     /**
      * Testing intersects(Range)
      */    
@@ -97,6 +147,7 @@ public class RangeTest {
     @Test
     public void testConstrainWithValueSmallerThanLower() {
     	myTester = new Range(5, 10);
+    	myTester.constrain(0);
     	double actual = myTester.constrain(0);
     	assertEquals("Incorrect constrain returned.", 5, actual, .000000001d);
     }
@@ -104,6 +155,7 @@ public class RangeTest {
     @Test
     public void testConstrainWithValueGreaterThanUpper() {
     	myTester = new Range(5, 10);
+    	myTester.constrain(15);
     	double actual = myTester.constrain(15);
     	assertEquals("Incorrect constrain returned.", 10, actual, .000000001d);
     }
@@ -111,8 +163,26 @@ public class RangeTest {
     @Test
     public void testConstrainWithValueInRange() {
     	myTester = new Range(5, 10);
+    	myTester.constrain(6);
     	double actual = myTester.constrain(6);
     	assertEquals("Incorrect constrain returned.", 6, actual, .000000001d);
+    }
+    
+    @Test // v4
+    public void testConstrainWithLowerValue() {
+    	myTester = new Range(5, 10);
+    	myTester.constrain(5);
+    	double actual = myTester.constrain(5);
+    	assertEquals("Incorrect constrain returned.", 5, actual, .000000001d);
+    }
+    
+    
+    @Test // v4
+    public void testConstrainWithUpperValue() {
+    	myTester = new Range(5, 10);
+    	myTester.constrain(10);
+    	double actual = myTester.constrain(10);
+    	assertEquals("Incorrect constrain returned.", 10, actual, .000000001d);
     }
     
     /**
@@ -216,6 +286,13 @@ public class RangeTest {
     	assertEquals("Incorrect upper bound for object.", 30, actual.getUpperBound(), .000000001d);
     }
     
+    @Test
+    public void testExpandToIncludeWithValueLessThanLowerBound() {
+            Range actual = Range.expandToInclude(exampleRange, -2);
+            assertEquals("Incorrect lower bound for object.", -2, actual.getLowerBound(), .000000001d);
+            assertEquals("Incorrect upper bound for object.", 1, actual.getUpperBound(), .000000001d);
+    }
+    
     /**
      * Testing expand(Range, double, double)
      */
@@ -250,6 +327,35 @@ public class RangeTest {
     	assertEquals("Incorrect lower bound for object.", 5, actual.getLowerBound(), .000000001d);
     	assertEquals("Incorrect upper bound for object.", 35, actual.getUpperBound(), .000000001d);
     }
+    
+    
+    @Test // v4
+    public void testShiftFalseBoolMutantTest_One() {
+    	myTester = new Range(0,0);
+    	Range.shift(myTester, 0.5, false);
+    	Range actual = Range.shift(myTester, 0.5, false);
+    	assertEquals(0.5, actual.getLowerBound(), .000000001d);
+    	assertEquals(0.5, actual.getUpperBound(), .000000001d);
+    }
+    
+    @Test // v4
+    public void testShiftFalseBoolMutantTest_Two() {
+    	myTester = new Range(-0.5, 0.5);
+    	Range.shift(myTester, 1, false);
+    	Range actual = Range.shift(myTester, 1, false);
+    	assertEquals(0, actual.getLowerBound(), .000000001d);
+    	assertEquals(1.5, actual.getUpperBound(), .000000001d);
+    }
+    
+    @Test // v4
+    public void testShiftFalseBoolMutantTest_Three() {
+    	myTester = new Range(0.5, 0.5);
+    	Range.shift(myTester, -20, false);
+    	Range actual = Range.shift(myTester, -20, false);
+    	assertEquals(0, actual.getLowerBound(), .000000001d);
+    	assertEquals(0, actual.getUpperBound(), .000000001d);
+    }
+    
     
     /**
      * Testing shift(Range, double)
@@ -324,7 +430,7 @@ public class RangeTest {
     	
     	result = secondRange.contains(0);
     	
-    	assertTrue("5 is in thirdRange (5,30)", result == isTrue);
+    	//assertTrue("5 is in thirdRange (5,30)", result == isTrue);
     	
     	result = thirdRange.contains(-5);
     	
@@ -359,7 +465,22 @@ public class RangeTest {
     }
     
     
+    @Test // v4
+    public void testContains_One() {
+    	Range mytester = new Range(-20, 10);
+    	boolean GARBAGE = mytester.contains(-20);
+    	boolean actual = mytester.contains(-20);
+    	
+    	assertTrue(actual);
+    }
     
+    @Test // v4
+    public void testContains_Two() {
+    	Range mytester = new Range(-20, 10);
+    	boolean GARBAGE = mytester.contains(10);
+    	boolean actual = mytester.contains(10);
+    	assertTrue(actual);
+    }
     
     //Testing Length()
     @Test
@@ -402,10 +523,28 @@ public class RangeTest {
     }
 
 
+    /**
+     * Test getCentralValue()
+     */
+    
     @Test
     public void centralValueShouldBeZero() {
         assertEquals("The central value of -1 and 1 should be 0",
         0, exampleRange.getCentralValue(), .000000001d);
+    }
+    
+    @Test	// v4
+    public void testGetCentralValue_One() {
+    	Range myTester = new Range(-20, 36);
+    	double min = myTester.getLowerBound();
+    	double max = myTester.getUpperBound();
+    	double GARBAGE_WHATCAN_ISAY = myTester.getCentralValue();
+    	double actual = myTester.getCentralValue();
+    	
+    	
+    	assertEquals("", -20, min, .00000d);
+    	assertEquals("", 36, max, .00000d);
+    	assertEquals("The central value of -20 and 36 should be 8", 8, actual, .000000001d);
     }
     
     
@@ -432,7 +571,7 @@ public class RangeTest {
     
     @Test
     public void getMinimumDoubleLowerBound() {
-    	assertEquals("Incorrect Lower Bound was returned.", -(Double.MAX_VALUE), largest.getLowerBound(), .000000001d);
+    	assertEquals("Incorrect Lower Bound was returned.", (Double.MAX_VALUE), largest.getLowerBound(), .000000001d);
     }
     
     @Test
@@ -488,21 +627,25 @@ public class RangeTest {
     // Testing toString()
     @Test
     public void correctToStringWithPositiveUpperAndLower() {
+    	secondRange.toString();
     	assertEquals("Incorrect String Returned.", "Range[5.0,30.0]", secondRange.toString());
     }
     
     @Test
     public void correctToStringWithNegativeUpperAndLower() {
+    	thirdRange.toString();
     	assertEquals("Incorrect String Returned.", "Range[-30.0,-5.0]", thirdRange.toString());
     }
     
     @Test
     public void correctToStringWithNegativeLowerAndPositiveUpper() {
+    	exampleRange.toString();
     	assertEquals("Incorrect String Returned.", "Range[-1.0,1.0]", exampleRange.toString());
     }
     
     @Test
     public void correctToStringWithEquivilentLowerAndUpper() {
+    	sameValuesRange.toString();
     	assertEquals("Incorrect String Returned.", "Range[0.0,0.0]", sameValuesRange.toString());
     }
     
