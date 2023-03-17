@@ -16,7 +16,9 @@ The primary objective of this lab assignment was to acquaint ourselves with muta
 
 # Report all the statistics and the mutation score for each test class
 ![](./RangeBefore.png)
+![](./RangeAfter.png)
 ![](./DataUtilitiesBefore.png)
+![](./DataUtilitiesAfter.png)
 
 
 # Analysis drawn on the effectiveness of each of the test classes
