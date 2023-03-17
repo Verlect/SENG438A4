@@ -29,6 +29,22 @@ The primary objective of this lab assignment was to acquaint ourselves with muta
 
 # Why do we need mutation testing? Advantages and disadvantages of mutation testing
 
+By using mutation testing, testers can build a more robust and comprehensive testing suite, which reduces the probability of bugs in the program.
+
+Mutation testing offers several advantages, including:
+
+- Improving the quality of the test suite: By injecting faults into the code, mutation testing can reveal weaknesses in the test suite, allowing developers to improve the quality of the code by addressing potential issues.
+- Helping testers find missed coverage in the test suite: Mutation testing can help identify areas of the code that have not been adequately covered by the test suite, allowing testers to create additional test cases to improve coverage.
+- Providing evaluation and feedback of the test suite: Mutation testing provides feedback on the effectiveness of the test suite, allowing developers to determine whether the current tests are sufficient or require additional coverage.
+
+Although mutation testing offers several benefits, it also has some disadvantages, including:
+
+- Manual mutation can be time-consuming: Manually creating mutants can be a tedious and time-consuming process. Moreover, the quality of the mutation generated heavily relies on the expertise and experience of the developer.
+
+- Requires a lot of mutants to have a good test on the test suite: Mutation testing typically requires a large number of mutants to generate useful results. This can make the process time-consuming and resource-intensive, as it can take a while to generate and run all the mutants.
+
+- Equivalent mutants may cause inaccuracies in the mutation test result: Sometimes, two different mutants can have the same effect on the output of the code, even though the underlying code is different. These equivalent mutants can cause inaccuracies in the mutation test results, leading to false positives or false negatives.
+
 # Explain your SELENUIM test case design process
 Selenium is used for GUI testing. In this lab, we were asked to test one of three websites: Costco.ca, Amazon.ca, or Ikea.ca. After close inspection and simple testing of each website, we chose to test Costco.ca in this assignment. The simple, minimal design of the Costco website really helped the test run smoothly without many errors. Ikea.ca was also a good website to implement Selenium testing, but in some cases, when starting to record a new test, Selenium might take the tester to Ikea.com, even though we entered www.ikea.com/ca/en/ as our testing website.With Amazon.ca, the website is too complicated and has many dynamic objects and algorithms involved. When testing simple search functions, the search results might differ each time based on the current user settings. Additionally, due to the complicated website design, Selenium often freezes and stops responding. This has happened multiple times, preventing us from conducting any search-related GUI testing on Amazon.ca.
 "The GUI test for Costco.ca aims to test basic day-to-day use cases. Initially, we tested functions related to the login process, such as logging in with incorrect information and logging out.Compared to Amazon.ca, Costco's search function is more straightforward and pages load quickly without any unresponsiveness issues. We have also added tests for searching and adding to the shopping cart. Additionally, we have designed a few test cases for useful links on the website. We made sure that contact information and necessary policies can be found on the website, and when clicking on them, they link to the correct page with accurate information.
@@ -42,6 +58,8 @@ Selenium utilizes assertions and checkpoints to verify that the system behaves a
 Selenium and Sikulix are tools used for testing user interfaces, but they differ in how they store user input. Selenium uses locators based on HTML code, recording every click, scroll, and mouse position, while Sikulix uses image recognition to save user decisions. Depending on the UI being tested, one format may be more advantageous. For example, Sikulix may be better for interfaces with many buttons and images, while Selenium may be preferred for interfaces with lots of redirection and positioning. Both tools offer the advantage of automating test case execution, allowing users to record a test once without repeating the same actions. However, Sikulix may have the disadvantage of matching multiple elements on the interface. At the same time, Selenium may fail when something unexpected happens during test execution, such as not logging out before running the next test. Selenium also works on web-based applications, while Sikulix can be used for different GUI applications due to its image-based approach.
 
 # How the team work/effort was divided and managed
+
+The work was divided based of who did which class from the previous assignment, this is due to the fact that they would have a better idea of the class and also be able to determine where the mutation happened easier. Therefore, we are able to divide up the work evenly as the workload is also based off of the previous assignments assignments. 
 
 
 # Difficulties encountered, challenges overcome, and lessons learned
