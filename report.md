@@ -14,6 +14,24 @@ The primary objective of this lab assignment was to acquaint ourselves with muta
 
 # Analysis of 10 Mutants of the Range class 
 
+### getCentralValue() 
+#### Mutant: Decrement/Increment double field lower/upper [SURVIVED]
+
+The original unit tests for this method did not account for the modification of the class variables lower and upper. As such, in our new tests, we simply called the method twice; if the method modifies the class whether through a postfix or a prefix, then the unit test will catch it when measured against the second method call.
+
+
+### toString()
+#### Mutant: Decrement/Increment double field lower/upper [SURVIVED]
+
+The original unit tests for this method did not account for the modification of the class variables lower and upper. As such, in our new tests, we simply called the method twice; if the method modifies the class whether through a postfix or a prefix, then the unit test will catch it when measured against the second method call.
+
+
+### contains()
+#### Mutant: Decrement/Increment double field lower/upper [SURVIVED]
+
+The original unit tests for this method did not account for the modification of the class variables lower and upper. As such, in our new tests, we simply called the method twice; if the method modifies the class whether through a postfix or a prefix, then the unit test will catch it when measured against the second method call.
+
+
 # Report all the statistics and the mutation score for each test class
 ![](./RangeBefore.png)
 ![](./RangeAfter.png)
@@ -70,3 +88,5 @@ In addition, Selenium does not isolate the test environment. It will run on the 
 # Comments/feedback on the lab itself
 It is a bit difficult to set up pitest in Eclipse, mnore deatailed docutementation would help. In addition the pitest runs pretty slow, it might arrise some time issues during the lab demo. 
 As of Selenium GUI testing, althrough it is very simple to use and covered in class, some more guide would be helpful. 
+
+
