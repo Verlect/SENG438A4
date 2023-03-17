@@ -31,6 +31,7 @@ Selenium is used for GUI testing. In this lab, we were asked to test one of thre
 "The GUI test for Costco.ca aims to test basic day-to-day use cases. Initially, we tested functions related to the login process, such as logging in with incorrect information and logging out.Compared to Amazon.ca, Costco's search function is more straightforward and pages load quickly without any unresponsiveness issues. We have also added tests for searching and adding to the shopping cart. Additionally, we have designed a few test cases for useful links on the website. We made sure that contact information and necessary policies can be found on the website, and when clicking on them, they link to the correct page with accurate information.
 
 # Explain the use of assertions and checkpoints
+Selenium utilizes assertions and checkpoints to verify that the system behaves as intended. The application executes these checks automatically, making them easy to implement. After a user acts such as clicking a mouse, scrolling, or inputting text, Selenium applies these validations. During test case execution, if an unexpected or incorrect input is encountered, the test case will halt and fail at that specific checkpoint. This process is comparable to JUnit testing, where a failure occurs if the assertion is unsuccessful.
 
 # how did you test each functionaity with different test data
 
