@@ -85,7 +85,7 @@ public class DataUtilitiesTest {
 	
 	@Test
 	public void createNumberArrayTestInt() {
-		Number[] expected = {7,2,4};
+		Number[] expected = {7.0,2.0,4.0};
 		double[] doubleArray = {7,2,4};
 		
 		Number[] result = DataUtilities.createNumberArray(doubleArray);
@@ -102,7 +102,7 @@ public class DataUtilitiesTest {
 	}
 	@Test
 	public void createNumberArrayTestIntNegative() {
-		Number[] expected = {-7,-2,-4};
+		Number[] expected = {-7.0,-2.0,-4.0};
 		double[] doubleArray = {-7,-2,-4};
 		
 		Number[] result = DataUtilities.createNumberArray(doubleArray);
@@ -118,11 +118,11 @@ public class DataUtilitiesTest {
 	}
 	@Test
 	public void createNumberArrayTestOneElement() {
-		Number[] expected = {6 };
+		Number[] expected = {6.0 };
 		double[] doubleArray = { 6};
 		
 		Number[] result = DataUtilities.createNumberArray(doubleArray);
-		assertArrayEquals("Should Equal",expected,result);
+		assertArrayEquals("Should Equal", expected ,result);
 	}
 	@Test
 	public void createNumberArrayTestEmpty() {
@@ -183,9 +183,9 @@ public class DataUtilitiesTest {
 			{
 				one(empty).getValue(0, -1);
 				will(returnValue(10.0));
-				one(empty).getValue(1, 0);
+				one(empty).getValue(1, -1);
 				will(returnValue(20.0));
-				one(empty).getValue(2, 0);
+				one(empty).getValue(2, -1);
 				will(returnValue(30.0));
 				one(empty).getRowCount();
 				will(returnValue(3));
@@ -195,8 +195,7 @@ public class DataUtilitiesTest {
 		try {
 			DataUtilities.calculateColumnTotal(empty, -1);
 			
-			throw new Exception("Should return error");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			assertEquals("Error Thrown Correctly", e.getClass(), IllegalArgumentException.class);
 		}
 	}
@@ -341,7 +340,7 @@ public class DataUtilitiesTest {
 		});
 		
 		int[] rows = {1};
-		assertEquals("The total has not been added correctly.",60.0, DataUtilities.calculateColumnTotal(empty, 1, rows),0.0000001d);
+		assertEquals("The total has not been added correctly.",30.0, DataUtilities.calculateColumnTotal(empty, 1, rows),0.0000001d);
 	}
 	
 	@Test
@@ -363,7 +362,7 @@ public class DataUtilitiesTest {
 		});
 		
 		int[] rows = {1};
-		assertEquals("The total has not been added correctly.",70.0, DataUtilities.calculateColumnTotal(empty, 1, rows),0.0000001d);
+		assertEquals("The total has not been added correctly.",30.0, DataUtilities.calculateColumnTotal(empty, 1, rows),0.0000001d);
 	}
 	@Test
 	public void calcColNullNegDataObjNonNull() {
@@ -384,7 +383,7 @@ public class DataUtilitiesTest {
 		});
 		
 		int[] rows = {1};
-		assertEquals("The total has not been added correctly.",-70.0, DataUtilities.calculateColumnTotal(empty, 1, rows),0.0000001d);
+		assertEquals("The total has not been added correctly.",-30.0, DataUtilities.calculateColumnTotal(empty, 1, rows),0.0000001d);
 	}
 	
 	//Calculate Row Total
@@ -468,8 +467,7 @@ public class DataUtilitiesTest {
 		try {
 			DataUtilities.calculateRowTotal(empty, -1);
 			
-			throw new Exception("Should return error");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			assertEquals("Error Thrown Correctly", e.getClass(), IllegalArgumentException.class);
 		}
 	}
@@ -504,7 +502,7 @@ public class DataUtilitiesTest {
 		});
 		
 		int[]col = {1};
-		assertEquals("The total has been added correctly.", -50.0, DataUtilities.calculateRowTotal(empty, 1, col),0.0000001d);
+		assertEquals("The total has been added correctly.", -20.0, DataUtilities.calculateRowTotal(empty, 1, col),0.0000001d);
 	}
 	
 	@Test
@@ -526,7 +524,7 @@ public class DataUtilitiesTest {
 		});
 		
 		int[]col = {1};
-		assertEquals("The total has been added correctly.", 50.0, DataUtilities.calculateRowTotal(empty, 1, col),0.0000001d);
+		assertEquals("The total has been added correctly.", 20.0, DataUtilities.calculateRowTotal(empty, 1, col),0.0000001d);
 	}
 	
 	@Test
@@ -676,4 +674,183 @@ public class DataUtilitiesTest {
 		assertEquals("Cumulative Percentage is not correct", 0.33333333333333, DataUtilities.getCumulativePercentages(values).getValue(0).doubleValue(), 0.0000001d );
 		
 	}
+	
+	@Test
+	public void calcPosColPosVal2() {
+		mock = new Mockery();
+		empty = mock.mock(Values2D.class);
+		
+		mock.checking(new Expectations() {
+			{
+				one(empty).getRowCount();
+				will(returnValue(1));
+				one(empty).getValue(1, 0);
+				will(returnValue(1.0));
+				one(empty).getValue(1, 1);
+				will(returnValue(2.0));
+				one(empty).getValue(1, 2);
+				will(returnValue(3.0));
+				one(empty).getValue(1, 3);
+				will(returnValue(4.0));
+			}
+		});
+		
+		final int[] validRowsToPass = { 4 };
+		
+		assertEquals("The total has been added correctly.", 0.0, DataUtilities.calculateColumnTotal(empty, 1, validRowsToPass),0.0000001d);
+	}
+	
+	@Test
+	public void calcPosRowPosVal2() {
+		mock = new Mockery();
+		empty = mock.mock(Values2D.class);
+		
+		mock.checking(new Expectations() {
+			{
+				one(empty).getRowCount();
+				will(returnValue(1));
+				one(empty).getValue(1, 0);
+				will(returnValue(1.0));
+				one(empty).getValue(1, 1);
+				will(returnValue(2.0));
+				one(empty).getValue(1, 2);
+				will(returnValue(3.0));
+			}
+		});
+		
+		final int[] validRowsToPass = { 1 };
+		
+		assertEquals("The total has been added correctly.", 0.0, DataUtilities.calculateColumnTotal(empty, 1, validRowsToPass),0.0000001d);
+	}
+	
+	@Test
+	public void calcPosRowPosValNull2() {
+		mock = new Mockery();
+		empty = mock.mock(Values2D.class);
+		
+		mock.checking(new Expectations() {
+			{
+				one(empty).getValue(3, 0);
+				will(returnValue(null));
+				one(empty).getRowCount();
+				will(returnValue(4));
+				one(empty).getValue(0, 0);
+				will(returnValue(1.0));
+				one(empty).getValue(1, 0);
+				will(returnValue(2.0));
+				one(empty).getValue(2, 0);
+				will(returnValue(3.0));
+				
+			}
+		});
+		
+		final int[] validRowsToPass = { 0, 1, 2, 3 };
+		
+		assertEquals("The total has been added correctly.", 6.0, DataUtilities.calculateColumnTotal(empty, 0, validRowsToPass),0.0000001d);
+	}
+	
+	@Test
+	public void calcPosRowsPosVal2() {
+		mock = new Mockery();
+		empty = mock.mock(Values2D.class);
+		
+		mock.checking(new Expectations() {
+			{
+				one(empty).getColumnCount();
+				will(returnValue(1));
+				one(empty).getValue(1, 0);
+				will(returnValue(1.0));
+
+			}
+		});
+		
+		final int[] validRowsToPass = {1 };
+		
+		assertEquals("The total has been added correctly.", 0.0, DataUtilities.calculateRowTotal(empty, 0, validRowsToPass),0.0000001d);
+	}
+	
+	@Test
+	public void calcPosRowsPosValbigarray2() {
+		mock = new Mockery();
+		values = mock.mock(KeyedValues.class);
+		
+		mock.checking(new Expectations() {
+			{
+				atLeast(1).of(values).getKey(1); 
+				will(returnValue(26.0)); 
+				atLeast(1).of(values).getItemCount(); 
+				will(returnValue(2)); 
+				atLeast(1).of(values).getValue(0); 
+				will(returnValue(1.0)); 
+				atLeast(1).of(values).getKey(0);
+				will(returnValue(19.0)); 
+				atLeast(1).of(values).getValue(1); 
+				will(returnValue(5.0)); 
+				
+				
+
+			}
+		});
+		
+		assertEquals("The total has been added correctly.", 1.0, DataUtilities.getCumulativePercentages(values).getValue(1).doubleValue(),0.0000001d);
+	}
+	
+	@Test
+	public void calcPosRowsPosVal3() {
+		mock = new Mockery();
+		empty = mock.mock(Values2D.class);
+		
+		mock.checking(new Expectations() {
+			{
+				one(empty).getColumnCount();
+
+				will(returnValue(0));
+
+				one(empty).getRowCount();
+
+				will(returnValue(0));
+
+
+
+			}
+		});
+		
+		assertEquals("The total has been added correctly.", 0.0, DataUtilities.calculateRowTotal(empty, 0),0.0000001d);
+	}
+	
+	@Test
+	public void createdoublenothing() {
+		Number[][] expectedArray = { {}, {} };
+
+		double[][] arrayToPass = { {}, {} };
+		Number[][] actualArray = DataUtilities.createNumberArray2D(arrayToPass);
+		assertArrayEquals("createNumberArray failed", expectedArray,
+				actualArray);
+	}
+	
+	@Test
+	public void smallclonetest() {
+		double[][] array = { { -0.035 }, { -0.00067 } }; 
+		double[][] actualArray = DataUtilities.clone(array); 
+		assertArrayEquals("createNumberArray failed the correct array ",
+				array, actualArray); 
+	}
+	
+	@Test
+	public void bigarrayclonetest() {
+		double[][] array = { { 2222.0, 285.0, 1111.0, 4444.0, 55555.0 }, { 20000.0, 1111.0, 777.0, 4244.0, 5555.0 } };;
+		double[][] actualArray = DataUtilities.clone(array); 
+		assertArrayEquals("createNumberArray failed the correct array",
+				array, actualArray); 
+	}
+	
+	@Test
+	public void bigarraynullclonetest() {
+		double[][] array = { { 2222.0, 285.0, 1111.0, 4444.0, 55555.0 }, null, { 20000.0, 1111.0, 777.0, 4244.0, 5555.0 } };; 
+		double[][] actualArray = DataUtilities.clone(array); 
+		assertArrayEquals("createNumberArray failed the correct array",
+				array, actualArray); 
+	}
+	
+	
 }

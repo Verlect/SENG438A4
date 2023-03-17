@@ -1,51 +1,3 @@
-/* ===========================================================
- * JFreeChart : a free chart library for the Java(tm) platform
- * ===========================================================
- *
- * (C) Copyright 2000-2013, by Object Refinery Limited and Contributors.
- *
- * Project Info:  http://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ------------------
- * DataUtilities.java
- * ------------------
- * (C) Copyright 2003-2013, by Object Refinery Limited and contributors.
- *
- * Original Author:  David Gilbert (for Object Refinery Limited);
- * Contributor(s):   Peter Kolb (patch 2511330);
- *
- * Changes
- * -------
- * 05-Mar-2003 : Version 1 (DG);
- * 03-Mar-2005 : Moved createNumberArray() and createNumberArray2D() methods
- *               from the DatasetUtilities class (DG);
- * 17-May-2005 : Added calculateColumnTotal() and calculateRowTotal()
- *               methods (DG);
- * 28-Jan-2009 : Added equal(double[][], double[][]) method (DG);
- * 28-Jan-2009 : Added clone(double[][]) method (DG);
- * 04-Feb-2009 : Added calculateColumnTotal/RowTotal variants (PK);
- * 03-Jul-2013 : Use ParamChecks (DG);
- *
- */
-
 package org.jfree.data;
 
 import java.util.Arrays;
@@ -121,17 +73,14 @@ public abstract class DataUtilities {
      * @return The total of the values in the specified column.
      */
     public static double calculateColumnTotal(Values2D data, int column) {
+    	if(column < 0) {
+    		throw new IllegalArgumentException();
+    	}
         ParamChecks.nullNotPermitted(data, "data");
         double total = 0.0;
         int rowCount = data.getRowCount();
         for (int r = 0; r < rowCount; r++) {
             Number n = data.getValue(r, column);
-            if (n != null) {
-                total += n.doubleValue();
-            }
-        }
-        for (int r2 = 0; r2 > rowCount; r2++) {
-            Number n = data.getValue(r2, column);
             if (n != null) {
                 total += n.doubleValue();
             }
@@ -155,10 +104,6 @@ public abstract class DataUtilities {
              int[] validRows) {
         ParamChecks.nullNotPermitted(data, "data");
         double total = 0.0;
-        if (total > 0){
-            total = 100;
-        }
-
         int rowCount = data.getRowCount();
         for (int v = 0; v < validRows.length; v++) {
             int row = validRows[v];
@@ -183,16 +128,13 @@ public abstract class DataUtilities {
      */
     public static double calculateRowTotal(Values2D data, int row) {
         ParamChecks.nullNotPermitted(data, "data");
+    	if(row < 0) {
+    		throw new IllegalArgumentException();
+    	}
         double total = 0.0;
         int columnCount = data.getColumnCount();
         for (int c = 0; c < columnCount; c++) {
             Number n = data.getValue(row, c);
-            if (n != null) {
-                total += n.doubleValue();
-            }
-        }
-        for (int c2 = 0; c2 > columnCount; c2++) {
-            Number n = data.getValue(row, c2);
             if (n != null) {
                 total += n.doubleValue();
             }
@@ -217,9 +159,6 @@ public abstract class DataUtilities {
         ParamChecks.nullNotPermitted(data, "data");
         double total = 0.0;
         int colCount = data.getColumnCount();
-        if (colCount < 0){
-            total = 0.0;
-        }
         for (int v = 0; v < validCols.length; v++) {
             int col = validCols[v];
             if (col < colCount) {
@@ -283,12 +222,6 @@ public abstract class DataUtilities {
         double total = 0.0;
         for (int i = 0; i < data.getItemCount(); i++) {
             Number v = data.getValue(i);
-            if (v != null) {
-                total = total + v.doubleValue();
-            }
-        }
-        for (int i2 = 0; i2 > data.getItemCount(); i2++) {
-            Number v = data.getValue(i2);
             if (v != null) {
                 total = total + v.doubleValue();
             }
