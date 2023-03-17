@@ -10,7 +10,7 @@
 |                | Bismarck Leung    |
 
 # Introduction
-
+The primary objective of this lab assignment was to acquaint ourselves with mutation testing and the Selenium tool, both of which were introduced in the lectures. To conduct mutation testing, our group utilized the PIT testing tool in Eclipse to determine the mutation coverage. In the second part of the assignment, we employed the Selenium IDE extension on our respective browsers. The purpose of mutation testing was to enhance the error detection capability of the source code by identifying weak spots that needed to be thoroughly tested by creating test cases. The lab also focused on GUI testing, which provided a glimpse into automating test cases and centred on the user interface as the foundation for recording and executing scripts.
 
 # Analysis of 10 Mutants of the Range class 
 
@@ -35,6 +35,7 @@ Selenium is used for GUI testing. In this lab, we were asked to test one of thre
 # how did you test each functionaity with different test data
 
 # Discuss advantages and disadvantages of Selenium vs. Sikulix
+Selenium and SikuliX are popular testing frameworks that can be used to automate the testing of web and desktop applications, respectively. However, each framework has its strengths and weaknesses, and the choice between them ultimately depends on the specific needs and requirements of the project. For example, Selenium is a better choice for web application testing and has more comprehensive language support but it can have a steep learning curve. But it can have a steep learning curve, especially for beginners unfamiliar with web development or testing frameworks. On the other hand, SikuliX is a good choice for desktop application testing and has a simple scripting language. Still, it relies on image recognition to interact with elements on the screen, which can be impacted by changes in screen resolution or UI changes in the application being tested. Ultimately, the choice between the two depends on the specific needs and requirements of the project.
 
 # How the team work/effort was divided and managed
 
