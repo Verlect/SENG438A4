@@ -47,3 +47,5 @@ Selenium also does not come with an auto-save or quick save feature, and it is v
 In addition, Selenium does not isolate the test environment. It will run on the current browser settings, including whether an account is already logged in or if there are items in the shopping cart. This is a bit of a hassle as it might allow the same test cases to run under different settings and generate different results.
 
 # Comments/feedback on the lab itself
+It is a bit difficult to set up pitest in Eclipse, mnore deatailed docutementation would help. In addition the pitest runs pretty slow, it might arrise some time issues during the lab demo. 
+As of Selenium GUI testing, althrough it is very simple to use and covered in class, some more guide would be helpful. 
